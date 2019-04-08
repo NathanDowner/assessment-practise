@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block main %}
+<h1>Developers</h1>
+    <ul>
+        {% for member in members %}
+            <li><a href="{{ url_for('staff', memberid = member.staff_id) }}">{{ member.fname }} {{member.lname}}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

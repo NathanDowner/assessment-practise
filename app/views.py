@@ -7,6 +7,7 @@ This file creates your application.
 
 from app import app
 from flask import render_template, request, redirect, url_for, flash
+from app.models import Staff, Project
 
 
 ###
@@ -17,14 +18,36 @@ from flask import render_template, request, redirect, url_for, flash
 def home():
     """Render website's home page."""
     return render_template('home.html')
+    
+@app.route('/assign/')
+def assign():
+    devs = Staff.query.all()
+    projects = Project.query.all()
+    return render_template('assignment.html', devs=devs, projects=projects)
 
-
-@app.route('/about/')
-def about():
+@app.route('/members/')
+def staffMembers():
     """Render the website's about page."""
-    return render_template('about.html', name="Mary Jane")
-
-
+    mem = Staff.query.all()
+    return render_template('members.html', members = mem)
+    
+    
+@app.route('/members/<int:memberid>')
+def staff(memberid):
+    member = Staff.query.get(userid)
+    return render_template('member.html', member=member)
+    
+@app.route('/projects/')
+def projects():
+    p = Project.query.all()
+    return render_template('projects.html',projects=p)
+    
+@app.route('/projects/<int:projectId>')
+def project(projectId):
+    project = Project.query.get(projectId)
+    return render_template('project.html', project = project)
+    
+    
 ###
 # The functions below should be applicable to all Flask apps.
 ###

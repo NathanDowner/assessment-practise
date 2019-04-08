@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-  <a class="navbar-brand" href="#">Lab 2</a>
+  <a class="navbar-brand" href="#">Assessment</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -10,7 +10,13 @@
         <a class="nav-link" href="{{ url_for('home') }}">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('about') }}">About</a>
+        <a class="nav-link" href="{{ url_for('staffMembers') }}">Staff</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('projects') }}">Projects</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('assign') }}">Assign</a>
       </li>
     </ul>
   </div>

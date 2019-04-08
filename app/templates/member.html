@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block main %}
+    <h1>Staff Member: {{ member.fname }} {{ member.lname }}</h1>
+    <p><stong>Position:</stong> {{ member.position }}</p>
+    <h2>Projects assigned to: </h2>
+    <ul>
+        {% for project in member.projects %}
+            <li>{{ project.project_name }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

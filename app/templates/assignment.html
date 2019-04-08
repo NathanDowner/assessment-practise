@@ -1,0 +1,27 @@
+{% extends 'base.html'%}
+{% block main %}
+    <h1>Project Assignments</h1>
+    <form method="POST" action="{{ url_for('assign') }}">
+       
+        <div class="form-group">
+            <label for="dev">Developer</label>
+            <select class="form-control" id="dev" name="dev">
+                <option default>Default select</option>
+                {% for dev in devs %}
+                    <option value='{{ dev.staff_id }}'>{{ dev.fname }} {{ dev.lname }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="projects">Projects</label>
+            <select class="form-control" id="projects" multiple="multiple" size="5">
+                <option default>Select projects</option>
+                {% for p in projects %}
+                    <option value='{{ p.project_id }}'>{{ p.project_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <input type="submit" value="Submit"/>
+    </form>
+{% endblock %}
