@@ -2,19 +2,21 @@ from . import db
 
 links = db.Table('links',
     db.Column('staff_id', db.Integer, db.ForeignKey('staff.staff_id')),
-    db.Column('project_id', db.Integer, db.ForeignKey('project.project_id'))
+    db.Column('project_id', db.Integer, db.ForeignKey('projects.project_id'))
 )
 
 class Staff(db.Model):
     # __tablename__ = 'staff_members'
     staff_id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(20))
     fname = db.Column(db.String(20))
     lname = db.Column(db.String(20))
     position = db.Column(db.String(20))
     projects = db.relationship('Project', secondary=links,
         backref = db.backref('team_members', lazy='dynamic'))#dynamic otherwise
     
-    def __init__(self, fname, lname, pos):
+    def __init__(self, title, fname, lname, pos):
+        self.title = title
         self.fname = fname
         self.lname = lname
         self.position = pos
@@ -23,7 +25,7 @@ class Staff(db.Model):
         return '<Staff {}>'.format(self.fname)
         
 class Project(db.Model):
-    # __tablename__ = 'projects'
+    __tablename__ = 'projects'
     project_id = db.Column(db.Integer, primary_key=True)
     project_name = db.Column(db.String(20), nullable=False)
     

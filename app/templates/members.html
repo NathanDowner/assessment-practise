@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 
 {% block main %}
-<h1>Developers</h1>
+<h1>Staff</h1>
+<a class="btn btn-primary" href="{{ url_for('addStaff') }}"><i class="fas fa-user-plus"></i>Add staff member</a>
     <div class="list-group">
         {% for member in members %}
             <a class="list-group-item list-group-item-action" href="{{ url_for('staff', memberid = member.staff_id) }}">{{ member.fname }} {{member.lname}}</a>

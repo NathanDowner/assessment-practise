@@ -2,4 +2,17 @@
 {% block main %}
     <h1>Project #{{ project.project_id }}: {{ project.title }}</h1>
     
+    <h4>Assigned Members</h4>
+    {% if project.team_members != None %}
+            <ul>
+                {% for member in project.team_members%}
+                    <li>{{ member.fname }} {{ member.lname }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>This project has no members assigned</p>
+        {% endif %}
+        
+    <h4>Details</h4>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae iste tempore quod, deserunt quo quia sunt autem illo veritatis consequatur saepe deleniti inventore dolorum, unde libero. Architecto tempora laboriosam, reprehenderit numquam, officia itaque adipisci aperiam, cum quisquam voluptates libero eos.</p>
 {% endblock %}

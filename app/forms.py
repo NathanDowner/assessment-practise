@@ -10,6 +10,7 @@ class ProjectForm(FlaskForm):
     name = StringField('Project Name', validators=[DataRequired()])
     
 class StaffForm(FlaskForm):
+    title = StringField('Title', validators=[DataRequired()])
     fname = StringField('First Name', validators=[DataRequired()])
     lname = StringField('Last Name', validators=[DataRequired()])
     position = StringField('Position', validators=[DataRequired()])

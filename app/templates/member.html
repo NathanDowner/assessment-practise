@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block main %}
-    <h1>Staff Member: {{ member.fname }} {{ member.lname }}</h1>
-    <p><stong>Position:</stong> {{ member.position }}</p>
+    <h1>{{ member.title }}{{ member.fname }} {{ member.lname }}</h1>
+    <h4><stong>Position:</stong> {{ member.position }}</h4>
+    <br/><br/>
     <h2>Projects assigned to: </h2>
         {% if member.projects %}
             <ul>
@@ -10,6 +11,6 @@
                 {% endfor %}
             </ul>
         {% else %}
-            <h3>This staff member has no assigned projects</h3>
+            <p>This staff member has no assigned projects</p>
         {% endif %}
 {% endblock %}

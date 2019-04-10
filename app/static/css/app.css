@@ -1,3 +1,11 @@
 body {
     padding-top: 5rem;
 }
+
+.btn {
+    margin-bottom: 20px;
+}
+
+i {
+    margin-right: 10px;
+}

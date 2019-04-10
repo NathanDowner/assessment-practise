@@ -20,6 +20,13 @@ def home():
     """Render website's home page."""
     return render_template('home.html')
     
+# @app.route('/part3')
+# def part3():
+    # cur = mysql.connection.cursor()
+    # cur.execute("SELECT s.id as id, s.fname, s.lname, p.name FROM staff r LEFT OUTER JOIN project p ON (s.id = p.)")
+    # staff = Staff.query.all()
+    # db.session.query(Staff, Project).outerjoin(Project, Staff.id == Project.team_memmber)
+    
 @app.route('/assign/', methods=['POST', 'GET'])
 def assign():
     form = AssignmentForm()
@@ -52,6 +59,22 @@ def addProject():
         flash('Added Project Successfully', 'success')
         return redirect(url_for("projects"))
     return render_template('project_form.html', form=form)
+    
+@app.route('/addStaff/', methods=['POST', 'GET'])
+def addStaff():
+    form = StaffForm()
+    if request.method=='POST' and form.validate_on_submit():
+        s = Staff(
+            request.form['title'],
+            request.form['fname'],
+            request.form['lname'],
+            request.form['position']
+            )
+        db.session.add(s)
+        db.session.commit()
+        flash('Added Staff Member successfully', 'success')
+        return redirect(url_for('staffMembers'))
+    return render_template('staff_form.html', form=form)
 
 @app.route('/members/')
 def staffMembers():
