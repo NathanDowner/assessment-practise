@@ -12,7 +12,7 @@ class Staff(db.Model):
     lname = db.Column(db.String(20))
     position = db.Column(db.String(20))
     projects = db.relationship('Project', secondary=links,
-        backref = db.backref('team_members', lazy='dynamic'))
+        backref = db.backref('team_members', lazy='dynamic'))#dynamic otherwise
     
     def __init__(self, fname, lname, pos):
         self.fname = fname
@@ -26,7 +26,6 @@ class Project(db.Model):
     # __tablename__ = 'projects'
     project_id = db.Column(db.Integer, primary_key=True)
     project_name = db.Column(db.String(20), nullable=False)
-    
     
     def __init__(self, name):
         self.project_name = name

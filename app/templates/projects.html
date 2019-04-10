@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {% block main %}
     <h1>Projects</h1>
-    {% for project in projects %}
-        <li><a href="{{ url_for('projects', projectId= project.project_id) }}">{{ project.project_name }}</a></li>
-    {% endfor %}
+    <a class="btn btn-primary" href="{{ url_for('addProject') }}">Add Project</a>
+    <div class="list-group">
+        {% for project in projects %}
+            <a  class="list-group-item list-group-item-action" href="{{ url_for('projects', projectId= project.project_id) }}">{{ project.project_name }}</a></li>
+        {% endfor %}
+    
+    </div>
 {% endblock %}

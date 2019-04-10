@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block main %}
+    <h1>Add Project</h1>
+    <form method="POST" action="{{ url_for('addProject') }}">
+        {{ form.csrf_token }}
+        <div class="form-group">
+            {{ form.name.label }}
+            {{ form.name(class="form-control") }}
+        </div>
+        <input type="submit" value="Add Project">
+    </form>
+{% endblock %}

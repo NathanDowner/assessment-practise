@@ -5,9 +5,10 @@ Werkzeug Documentation:  http://werkzeug.pocoo.org/documentation/
 This file creates your application.
 """
 
-from app import app
+from app import app, db
 from flask import render_template, request, redirect, url_for, flash
 from app.models import Staff, Project
+from app.forms import *
 
 
 ###
@@ -19,11 +20,38 @@ def home():
     """Render website's home page."""
     return render_template('home.html')
     
-@app.route('/assign/')
+@app.route('/assign/', methods=['POST', 'GET'])
 def assign():
-    devs = Staff.query.all()
-    projects = Project.query.all()
-    return render_template('assignment.html', devs=devs, projects=projects)
+    form = AssignmentForm()
+    form.staffMember.choices = [(s.staff_id, s.fname) for s in Staff.query.all()]
+    form.projects.choices = [(p.project_id, p.project_name) for p in Project.query.all()]
+    
+    if request.method == "POST":
+        if form.validate_on_submit():
+            member = Staff.query.get(request.form['staffMember'])
+            
+            projects = request.form.getlist('projects')
+            for proj in projects:
+                p = Project.query.get(proj)
+                p.team_members.append(member)
+            db.session.commit()
+                
+            flash('successfully assigned the project(s)', 'success')
+            return redirect(url_for('staffMembers'))
+    
+    return render_template('assignment.html', form=form)
+    
+@app.route('/addProject/', methods=['POST', 'GET'])
+def addProject():
+    form = ProjectForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        p = Project(request.form['name'])
+        db.session.add(p)
+        db.session.commit()
+        
+        flash('Added Project Successfully', 'success')
+        return redirect(url_for("projects"))
+    return render_template('project_form.html', form=form)
 
 @app.route('/members/')
 def staffMembers():
@@ -34,7 +62,7 @@ def staffMembers():
     
 @app.route('/members/<int:memberid>')
 def staff(memberid):
-    member = Staff.query.get(userid)
+    member = Staff.query.get(memberid)
     return render_template('member.html', member=member)
     
 @app.route('/projects/')
@@ -45,7 +73,7 @@ def projects():
 @app.route('/projects/<int:projectId>')
 def project(projectId):
     project = Project.query.get(projectId)
-    return render_template('project.html', project = project)
+    return render_template('project.html', project=project)
     
     
 ###
